@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="An interactive, beginner-friendly visual guide to AWS Application Load Balancers. #Buildwithmayur">
+  <title>ALB Visual Lab — #Buildwithmayur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="ALB Visual Lab home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span><strong>cloud<span class="brand-dot">/</span>canvas</strong><small>BUILDWITHMAYUR LABS</small></span>
+      </a>
+      <div class="topbar-right">
+        <span class="live-pill"><i></i> INTERACTIVE LEARNING</span>
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Switch color theme" title="Switch color theme">☼ <span>Theme</span></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div class="eyebrow"><span class="eyebrow-line"></span> AWS NETWORKING · VISUAL EXPLAINER 01</div>
+        <h1>Meet the <span>receptionist</span><br>behind Ravi’s online shop.</h1>
+        <p class="intro-copy">Follow a customer request through an Application Load Balancer—one small, visual step at a time. No cloud experience needed.</p>
+        <div class="intro-meta"><span>◈ 9 guided steps</span><span>◷ ~45 seconds</span><span>✳ #Buildwithmayur</span></div>
+      </section>
+
+      <section class="workspace" aria-label="Interactive Application Load Balancer lesson">
+        <aside class="step-panel">
+          <div class="panel-heading"><div><span class="section-kicker">THE JOURNEY</span><h2>Follow the request</h2></div><span class="step-count" id="stepCount">01 / 09</span></div>
+          <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
+          <nav class="step-nav" id="stepNav" aria-label="Lesson steps">
+            <button class="step-item active" data-step="0" type="button" aria-current="step"><span class="step-number">01</span><span class="step-copy"><strong>Visitors arrive</strong><small>Customers enter the shop</small></span><span class="step-chevron">↗</span></button>
+            <button class="step-item" data-step="1" type="button"><span class="step-number">02</span><span class="step-copy"><strong>DNS finds the way</strong><small>Route 53 looks up the address</small></span><span class="step-chevron">↗</span></button>
+            <button class="step-item" data-step="2" type="button"><span class="step-number">03</span><span class="step-copy"><strong>Meet the ALB</strong><small>The receptionist takes the request</small></span><span class="step-chevron">↗</span></button>
+            <button class="step-item" data-step="3" type="button"><span class="step-number">04</span><span class="step-copy"><strong>Listener checks in</strong><small>Ports 80 and 443</small></span><span class="step-chevron">↗</span></button>
+            <button class="step-item" data-step="4" type="button"><span class="step-number">05</span><span class="step-copy"><strong>Meet the target group</strong><small>Two web servers, one team</small></span><span class="step-chevron">↗</span></button>
+            <button class="step-item" data-step="5" type="button"><span class="step-number">06</span><span class="step-copy"><strong>Share the traffic</strong><small>Spread requests across zones</small></span><span class="step-chevron">↗</span></button>
+            <button class="step-item" data-step="6" type="button"><span class="step-number">07</span><span class="step-copy"><strong>Check server health</strong><small>Route around a failure</small></span><span class="step-chevron">↗</span></button>
+            <button class="step-item" data-step="7" type="button"><span class="step-number">08</span><span class="step-copy"><strong>Add capacity</strong><small>Auto Scaling adds a server</small></span><span class="step-chevron">↗</span></button>
+            <button class="step-item" data-step="8" type="button"><span class="step-number">09</span><span class="step-copy"><strong>See the full picture</strong><small>Secure, monitored architecture</small></span><span class="step-chevron">↗</span></button>
+          </nav>
+          <div class="sidebar-foot"><span class="tiny-orb"></span><span>Ravi’s shop is open</span><span class="foot-status">LEARNING MODE</span></div>
+        </aside>
+
+        <div class="lesson-area">
+          <div class="canvas-toolbar">
+            <div><span class="section-kicker">LIVE ARCHITECTURE</span><h2 id="diagramTitle">01 — Visitors arrive</h2></div>
+            <div class="playback-controls">
+              <button id="playBtn" class="control-button primary" type="button" aria-label="Play lesson">▶ <span>Play</span></button>
+              <button id="pauseBtn" class="control-button" type="button" aria-label="Pause lesson">Ⅱ <span>Pause</span></button>
+              <button id="resetBtn" class="control-button" type="button" aria-label="Reset lesson">↺ <span>Reset</span></button>
+            </div>
+          </div>
+
+          <div class="diagram-frame" id="diagramFrame" tabindex="0" aria-label="Scrollable animated AWS architecture diagram">
+            <div class="diagram-topline"><span><i class="status-dot"></i> REQUEST FLOW SIMULATOR</span><span id="flowStatus">WAITING FOR VISITORS</span></div>
+            <svg id="architecture" class="architecture" viewBox="0 0 1100 620" role="img" aria-labelledby="svgTitle svgDesc" xmlns="http://www.w3.org/2000/svg">
+              <title id="svgTitle">Ravi's Application Load Balancer architecture</title>
+              <desc id="svgDesc">An animated architecture showing visitors, Route 53, an Application Load Balancer, listener rules, a target group, and EC2 servers.</desc>
+              <defs>
+                <linearGradient id="bgGlow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#102a43"/><stop offset="1" stop-color="#07111e"/></linearGradient>
+                <linearGradient id="albGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#167e83"/><stop offset="1" stop-color="#114b63"/></linearGradient>
+                <linearGradient id="serverGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#123e3c"/><stop offset="1" stop-color="#102b32"/></linearGradient>
+                <filter id="glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="softGlow"><feGaussianBlur stdDeviation="2.4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#5e819b" stroke-opacity=".09" stroke-width="1"/></pattern>
+                <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#61b9ff"/></marker>
+                <marker id="arrowTeal" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#4de0c1"/></marker>
+                <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#b89aff"/></marker>
+              </defs>
+              <rect width="1100" height="620" rx="20" fill="url(#bgGlow)"/>
+              <rect width="1100" height="620" rx="20" fill="url(#grid)"/>
+              <g id="stars" fill="#8bc9f4" opacity=".55"><circle cx="56" cy="84" r="1.3"/><circle cx="300" cy="54" r="1"/><circle cx="480" cy="94" r="1.5"/><circle cx="780" cy="50" r="1"/><circle cx="1030" cy="100" r="1.5"/><circle cx="90" cy="550" r="1"/><circle cx="530" cy="580" r="1.2"/><circle cx="1010" cy="540" r="1"/></g>
+              <text x="28" y="34" class="svg-micro">RAVI'S SHOP · REQUEST ROUTING MAP</text>
+              <text x="1072" y="34" text-anchor="end" class="svg-micro">REGION: EXAMPLE / NOT TO SCALE</text>
+
+              <!-- Wires are intentionally drawn before all component boxes. -->
+              <g id="wires" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path id="pathVisitorsDns" d="M160 172 H225" stroke="#61b9ff" stroke-width="2.5" stroke-dasharray="7 8" marker-end="url(#arrowBlue)"/>
+                <path id="pathDnsAlb" d="M355 172 H425" stroke="#61b9ff" stroke-width="2.5" stroke-dasharray="7 8" marker-end="url(#arrowBlue)"/>
+                <path id="pathAlbListener" d="M530 228 V282" stroke="#e9bd62" stroke-width="2.5" stroke-dasharray="7 8"/>
+                <path id="pathListenerGroup" d="M530 342 V392" stroke="#b89aff" stroke-width="2.5" stroke-dasharray="7 8" marker-end="url(#arrowPurple)"/>
+                <path id="pathGroupA" d="M470 438 C410 438 390 468 350 468" stroke="#4de0c1" stroke-width="2.5" stroke-dasharray="7 8" marker-end="url(#arrowTeal)"/>
+                <path id="pathGroupB" d="M590 438 C650 438 670 468 710 468" stroke="#4de0c1" stroke-width="2.5" stroke-dasharray="7 8" marker-end="url(#arrowTeal)"/>
+                <path id="pathGroupC" d="M550 450 C600 500 825 520 900 468" stroke="#4de0c1" stroke-width="2.5" stroke-dasharray="7 8" marker-end="url(#arrowTeal)"/>
+                <path id="pathReturnA" d="M330 440 C350 370 435 365 490 342" stroke="#4de0c1" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="4 7"/>
+                <path id="pathReturnB" d="M730 440 C710 370 625 365 570 342" stroke="#4de0c1" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="4 7"/>
+              </g>
+
+              <g id="zoneLabels" class="reveal" data-step="4">
+                <rect x="250" y="416" width="245" height="174" rx="14" fill="#8f73d5" fill-opacity=".05" stroke="#a88aff" stroke-opacity=".35" stroke-dasharray="5 6"/>
+                <rect x="610" y="416" width="245" height="174" rx="14" fill="#8f73d5" fill-opacity=".05" stroke="#a88aff" stroke-opacity=".35" stroke-dasharray="5 6"/>
+                <text x="265" y="435" class="svg-zone">AVAILABILITY ZONE A</text><text x="625" y="435" class="svg-zone">AVAILABILITY ZONE B</text>
+              </g>
+
+              <!-- Components -->
+              <g id="visitors" class="reveal" data-step="0">
+                <rect x="30" y="126" width="130" height="92" rx="14" class="node node-blue"/>
+                <circle cx="57" cy="151" r="10" fill="#61b9ff" fill-opacity=".2" stroke="#61b9ff"/>
+                <path d="M50 170 Q57 158 64 170 M57 161V174" stroke="#8bd0ff" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <text x="77" y="153" class="node-title">Visitors</text><text x="48" y="191" class="node-sub">Browser / app</text><text x="48" y="205" class="node-mini">“I want to shop!”</text>
+              </g>
+              <g id="dns" class="reveal" data-step="1">
+                <rect x="225" y="126" width="130" height="92" rx="14" class="node node-blue"/>
+                <circle cx="250" cy="151" r="10" fill="#61b9ff" fill-opacity=".18" stroke="#61b9ff"/>
+                <path d="M242 151H258M250 143V159M244 145Q250 151 244 157M256 145Q250 151 256 157" stroke="#8bd0ff" stroke-width="1.2" fill="none"/>
+                <text x="270" y="153" class="node-title">Route 53</text><text x="242" y="191" class="node-sub">DNS lookup</text><text x="242" y="205" class="node-mini">Finds the destination</text>
+              </g>
+              <g id="alb" class="reveal" data-step="2">
+                <rect x="425" y="126" width="210" height="102" rx="16" fill="url(#albGrad)" stroke="#4de0c1" stroke-width="1.6"/>
+                <rect x="425" y="126" width="210" height="102" rx="16" fill="none" stroke="#4de0c1" stroke-opacity=".18" stroke-width="8"/>
+                <circle cx="452" cy="153" r="11" fill="#4de0c1" fill-opacity=".18" stroke="#70f4d7"/>
+                <path d="M445 153H459M452 146V160M447 148L452 153L447 158M457 148L452 153L457 158" stroke="#b0fff0" stroke-width="1.4" fill="none"/>
+                <text x="474" y="155" class="node-title">Application</text><text x="444" y="177" class="node-title">Load Balancer</text><text x="444" y="202" class="node-sub">The friendly receptionist</text><text x="618" y="146" text-anchor="end" class="svg-chip">ALB</text>
+              </g>
+              <g id="listener" class="reveal" data-step="3">
+                <rect x="430" y="282" width="200" height="60" rx="12" class="node node-gold"/>
+                <circle cx="452" cy="304" r="8" fill="#e9bd62" fill-opacity=".2" stroke="#f6d78e"/>
+                <path d="M448 304H456M452 300V308" stroke="#f6d78e" stroke-width="1.4"/>
+                <text x="468" y="305" class="node-title">Listener rules</text><text x="448" y="325" class="node-sub">HTTP :80 · HTTPS :443</text>
+              </g>
+              <g id="targetGroup" class="reveal" data-step="4">
+                <rect x="430" y="392" width="200" height="58" rx="12" class="node node-purple"/>
+                <circle cx="452" cy="414" r="8" fill="#b89aff" fill-opacity=".2" stroke="#cbb7ff"/>
+                <path d="M447 414H457M452 409V419" stroke="#d8c9ff" stroke-width="1.4"/>
+                <text x="468" y="414" class="node-title">Target group</text><text x="448" y="434" class="node-sub">Registered web servers</text>
+              </g>
+              <g id="serverA" class="reveal" data-step="4">
+                <rect x="270" y="452" width="150" height="102" rx="12" class="server-node"/>
+                <rect x="284" y="466" width="25" height="25" rx="6" fill="#4de0c1" fill-opacity=".16" stroke="#4de0c1"/>
+                <path d="M290 473H303M290 479H303M290 485H299" stroke="#78f2d7" stroke-width="1.5" stroke-linecap="round"/>
+                <text x="317" y="478" class="node-title">EC2 · Web 1</text><text x="286" y="511" class="node-sub">AZ A · shop page</text>
+                <g class="healthA"><circle cx="290" cy="533" r="4" fill="#65e5a2"/><text x="300" y="537" class="health-label">Healthy</text></g>
+                <g class="failedA" style="display:none"><circle cx="290" cy="533" r="4" fill="#ff657a"/><text x="300" y="537" class="health-label fail-label">Unhealthy</text></g>
+              </g>
+              <g id="serverB" class="reveal" data-step="4">
+                <rect x="650" y="452" width="150" height="102" rx="12" class="server-node"/>
+                <rect x="664" y="466" width="25" height="25" rx="6" fill="#4de0c1" fill-opacity=".16" stroke="#4de0c1"/>
+                <path d="M670 473H683M670 479H683M670 485H679" stroke="#78f2d7" stroke-width="1.5" stroke-linecap="round"/>
+                <text x="697" y="478" class="node-title">EC2 · Web 2</text><text x="666" y="511" class="node-sub">AZ B · shop page</text>
+                <g class="healthB"><circle cx="670" cy="533" r="4" fill="#65e5a2"/><text x="680" y="537" class="health-label">Healthy</text></g>
+              </g>
+              <g id="serverC" class="reveal" data-step="7">
+                <rect x="870" y="452" width="150" height="102" rx="12" class="server-node server-new"/>
+                <rect x="884" y="466" width="25" height="25" rx="6" fill="#4de0c1" fill-opacity=".16" stroke="#4de0c1"/>
+                <path d="M890 473H903M890 479H903M890 485H899" stroke="#78f2d7" stroke-width="1.5" stroke-linecap="round"/>
+                <text x="917" y="478" class="node-title">EC2 · Web 3</text><text x="886" y="511" class="node-sub">Auto Scaling</text><circle cx="890" cy="533" r="4" fill="#65e5a2"/><text x="900" y="537" class="health-label">Healthy</text>
+              </g>
+              <g id="scaling" class="reveal" data-step="7">
+                <rect x="870" y="392" width="150" height="42" rx="10" fill="#1d3044" stroke="#65e5a2" stroke-opacity=".7"/>
+                <text x="945" y="409" text-anchor="middle" class="svg-zone">AUTO SCALING</text><text x="945" y="424" text-anchor="middle" class="node-mini">Adds capacity</text>
+              </g>
+              <g id="security" class="reveal" data-step="8">
+                <rect x="30" y="275" width="260" height="78" rx="12" fill="#102a3c" stroke="#61b9ff" stroke-opacity=".55"/>
+                <path d="M52 293L63 297V307Q63 316 52 321Q41 316 41 307V297Z" fill="#61b9ff" fill-opacity=".2" stroke="#75c7ff"/>
+                <path d="M47 306L51 310L58 302" fill="none" stroke="#b2e3ff" stroke-width="1.6" stroke-linecap="round"/>
+                <text x="77" y="299" class="node-title">HTTPS / TLS</text><text x="77" y="318" class="node-sub">Encrypted journey to ALB</text><text x="47" y="339" class="node-mini">Security groups allow only needed traffic</text>
+              </g>
+              <g id="monitoring" class="reveal" data-step="8">
+                <rect x="810" y="126" width="210" height="102" rx="14" fill="#192b42" stroke="#61b9ff" stroke-opacity=".65"/>
+                <path d="M831 161H840L846 147L855 173L863 156H875" fill="none" stroke="#70c8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="887" y="153" class="node-title">CloudWatch</text><text x="830" y="190" class="node-sub">Metrics & alarms</text><text x="830" y="205" class="node-mini">Requests · latency · target health</text>
+                <path d="M635 144 C700 108 752 108 810 144" stroke="#61b9ff" stroke-width="1.5" stroke-dasharray="4 6" fill="none"/>
+              </g>
+              <g id="responseLabel" class="reveal" data-step="5"><rect x="438" y="510" width="184" height="30" rx="15" fill="#123b39" stroke="#4de0c1" stroke-opacity=".6"/><text x="530" y="529" text-anchor="middle" class="node-sub">← Package response returns</text></g>
+
+              <!-- Moving packets are last, above the wires and components. -->
+              <g id="movingPackets">
+                <g class="packet packet-request" id="requestPacket">
+                  <rect x="-12" y="-9" width="24" height="18" rx="3" fill="#e8f7ff" stroke="#61b9ff" stroke-width="1.4"/>
+                  <path d="M-10 -7L0 1L10 -7" fill="none" stroke="#2389c5" stroke-width="1.6"/>
+                  <animateMotion dur="2.7s" repeatCount="indefinite" rotate="auto"><mpath href="#pathVisitorsDns"/></animateMotion>
+                </g>
+                <g class="packet packet-cart" id="cartPacket">
+                  <circle cx="-6" cy="7" r="2.3" fill="#f6d78e"/><circle cx="6" cy="7" r="2.3" fill="#f6d78e"/><path d="M-10 -7H-6L-2 3H8L11 -3H0" fill="none" stroke="#f6d78e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <animateMotion dur="3.3s" begin="1s" repeatCount="indefinite"><mpath href="#pathDnsAlb"/></animateMotion>
+                </g>
+                <g class="packet packet-response" id="responsePacket">
+                  <rect x="-9" y="-7" width="18" height="14" rx="2" fill="#4de0c1" stroke="#b5fff0"/><path d="M-9 -2H9M-3 -7V7M3 -7V7" stroke="#167e83" stroke-width="1"/>
+                  <animateMotion dur="3.6s" begin=".4s" repeatCount="indefinite"><mpath href="#pathGroupB"/></animateMotion>
+                </g>
+              </g>
+              <g id="statusOverlay" class="reveal" data-step="6">
+                <rect x="30" y="382" width="250" height="46" rx="10" fill="#321e2a" stroke="#ff657a" stroke-opacity=".75"/>
+                <text x="46" y="401" class="node-title fail-label">Health check failed</text><text x="46" y="417" class="node-mini">New requests avoid Web 1</text>
+              </g>
+              <text x="28" y="600" class="svg-footer">#BUILDWITHMAYUR · LEARN THE FLOW, NOT JUST THE ACRONYMS</text>
+              <text x="1072" y="600" text-anchor="end" class="svg-footer">SVG · LIVE SIMULATION</text>
+            </svg>
+          </div>
+
+          <div class="diagram-bottom">
+            <div class="legend"><span><i class="legend-dot blue"></i>Internet / DNS</span><span><i class="legend-dot teal"></i>Healthy flow</span><span><i class="legend-dot purple"></i>Target group</span><span><i class="legend-dot red"></i>Unhealthy</span></div>
+            <button id="failureBtn" class="failure-button" type="button">⚡ Simulate server failure</button>
+          </div>
+
+          <article class="caption-card" aria-live="polite">
+            <div class="caption-icon" id="captionIcon">✦</div>
+            <div class="caption-content">
+              <div class="caption-label">THE IDEA, WITHOUT THE JARGON</div>
+              <h3 id="captionTitle">A customer walks in</h3>
+              <p id="plainWords">Ravi’s online shop gets visitors. Each visitor brings a request, just like a customer arriving at a busy store.</p>
+              <div class="caption-details">
+                <div><span>TECHNICAL NAME</span><strong id="technicalName">Client request</strong></div>
+                <div><span>WATCH THE PICTURE</span><strong id="watchPicture">The visitor card lights up first.</strong></div>
+              </div>
+            </div>
+            <div class="caption-step" id="captionStep">01<span>/09</span></div>
+          </article>
+          <footer class="page-footer"><span>Built for curious cloud learners.</span><span>Made with care · <strong>#Buildwithmayur</strong></span></footer>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>
